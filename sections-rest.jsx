@@ -243,14 +243,16 @@ function Services() {
 /* ---- Work ---- */
 const WORK = [
 {
-  zh: "晨光選物 品牌識別", en: "Brand Identity", cat: "品牌識別",
+  zh: "台農嚴選 — 新盈感優酪乳系列", en: "Packaging", cat: "包裝設計",
   heroColor: "#376AB3",
-  client: "晨光選物 — 選品生活品牌",
-  about: "客戶希望建立一個清新、有質感的選品生活品牌，目標族群為 25–40 歲注重生活美學的都市族群，強調「慢生活」的選品哲學。",
-  process: "從品牌定位與命名出發，確立視覺語彙後，延伸至 LOGO、標準字、色彩系統與品牌應用。整個流程歷時約 6 週，共進行 3 輪提案修訂，最終確立獨具辨識度的品牌形象。",
-  feedback: "「設計完全符合我們對品牌的想像，質感與細膩度超出預期。第一次看到 LOGO 提案時就決定了，幾乎不需要任何修改。」",
-  metrics: [{ n: "6W", l: "週完成" }, { n: "3+", l: "應用展開" }, { n: "100%", l: "客戶滿意" }],
-  imgColors: ["rgba(55,106,179,0.12)", "rgba(55,106,179,0.07)", "rgba(201,202,202,0.18)", "rgba(55,106,179,0.09)"]
+  cover: "assets/work-01-cover.jpg", heroImg: "assets/work-01-hero.jpg", imgA: "assets/work-01-a.jpg", imgB: "assets/work-01-b.jpg", wideImg: "assets/work-01-cover.jpg",
+  client: "台農嚴選 — 新盈感優酪乳系列",
+  about: "台農以嚴選生乳聞名，本次以推廣半凝固狀優酪乳為主，一盒三入裝，分別為鮮奶、草莓、藍莓三種口味，希望跳脫台農以往較為寫實的風格，以新意象來包裝新商品。",
+  process: "我們在了解台農嚴選此款優酪乳有別於他款，使用半凝固口感還加入果粒的特色後，發想出輕盈＋新感覺＝「新盈感」。目的希望藉由這樣的命名，消費者能第一眼理解產品想傳達出的全新感受。",
+  feedback: "包裝設計上，將優酪乳流動狀態與口味意象轉化為幾何，並排後圖形之間交集出亮光，回應新盈感的「新」字。使用藍（鮮奶）、粉（草莓）、紫（藍莓），分別三種口味，透過日式簡約排版與明亮的用色，讓原先的大人感多些清新氛圍。",
+  metrics: [{ n: "3", l: "口味系列" }, { n: "1", l: "全新命名" }, { n: "6W", l: "週完成" }],
+  tags: ["品牌命名", "Slogan"],
+  imgColors: ["rgba(55,106,179,0.12)", "rgba(242,154,118,0.1)", "rgba(150,110,190,0.12)", "rgba(55,106,179,0.09)"]
 },
 {
   zh: "潮汐茶飲 包裝設計", en: "Packaging", cat: "包裝設計",
@@ -260,6 +262,7 @@ const WORK = [
   process: "以海浪、潮汐的流動感為設計主軸，結合台灣傳統元素，開發杯身、提袋、菜單等一系列包裝設計，確保視覺上形成完整的品牌語言。",
   feedback: "「包裝一推出就獲得大量 IG 打卡分享，成功提升品牌能見度，第一個月營業額提升 35%。」",
   metrics: [{ n: "35%", l: "營業額成長" }, { n: "5+", l: "包裝品項" }, { n: "4W", l: "週完成" }],
+  tags: ["包裝設計", "手搖飲", "在地文化"],
   imgColors: ["rgba(242,154,118,0.18)", "rgba(242,154,118,0.1)", "rgba(201,202,202,0.15)", "rgba(242,154,118,0.13)"]
 },
 {
@@ -270,6 +273,7 @@ const WORK = [
   process: "訂定社群視覺規範與內容策略後，每週產出 12–15 篇貼文素材，包含圖文排版、限時動態與活動企劃，並定期優化成效數據。",
   feedback: "「合作三個月後追蹤人數成長了一倍，訂房諮詢量也顯著增加，社群終於有了應有的溫度。」",
   metrics: [{ n: "2×", l: "粉絲成長" }, { n: "12+", l: "週均貼文" }, { n: "3M", l: "合作月數" }],
+  tags: ["社群經營", "旅宿品牌", "內容企劃"],
   imgColors: ["rgba(55,106,179,0.1)", "rgba(201,202,202,0.18)", "rgba(55,106,179,0.07)", "rgba(201,202,202,0.13)"]
 },
 {
@@ -280,6 +284,7 @@ const WORK = [
   process: "從品牌核心「野性與自由」出發，以粗曠線條與大地色系為主軸，延伸至 LOGO 系統、餐具、包裝、菜單與室內空間指引牌設計。",
   feedback: "「拿到設計稿那天，我們整個團隊都起立鼓掌。這就是我們想要的野放精神，完全到位。」",
   metrics: [{ n: "8+", l: "應用展開" }, { n: "8W", l: "週完成" }, { n: "98%", l: "客戶滿意" }],
+  tags: ["視覺系統", "咖啡品牌", "空間設計"],
   imgColors: ["rgba(201,202,202,0.28)", "rgba(55,106,179,0.08)", "rgba(201,202,202,0.18)", "rgba(55,106,179,0.06)"]
 },
 {
@@ -290,6 +295,7 @@ const WORK = [
   process: "分析品牌現有用戶數據後，制定受眾分層策略，設計多組廣告素材進行 A/B 測試，持續優化 CPC 與 ROAS，並結合節慶檔期活動提升轉單。",
   feedback: "「合作兩個月後 ROAS 從 1.8 提升到 4.2，整體廣告效益完全超出我們的預期，非常感謝。」",
   metrics: [{ n: "4.2×", l: "ROAS 達成" }, { n: "−38%", l: "CPC 降低" }, { n: "2M", l: "合作月數" }],
+  tags: ["廣告投放", "保養品牌", "Meta 廣告"],
   imgColors: ["rgba(242,154,118,0.16)", "rgba(242,154,118,0.09)", "rgba(55,106,179,0.09)", "rgba(242,154,118,0.12)"]
 },
 {
@@ -300,6 +306,7 @@ const WORK = [
   process: "以「光」為核心意象，融合書頁翻動的動態感，設計出溫暖而有力量的活動視覺系統，並延伸至各尺寸素材，確保跨媒體的一致性。",
   feedback: "「活動海報貼出後馬上被多位藝文媒體轉分享，今年的閱讀節報名人數是去年的三倍。」",
   metrics: [{ n: "3×", l: "活動報名" }, { n: "10+", l: "素材規格" }, { n: "3W", l: "週完成" }],
+  tags: ["活動視覺", "獨立書店", "海報設計"],
   imgColors: ["rgba(55,106,179,0.13)", "rgba(55,106,179,0.07)", "rgba(201,202,202,0.16)", "rgba(55,106,179,0.09)"]
 },
 {
@@ -310,68 +317,10 @@ const WORK = [
   process: "以「自然、純粹、直接」為設計核心，開發簡潔有力的 LOGO 系統，搭配大地色系與清爽版型，延伸至包裝標籤與電商視覺。",
   feedback: "「新品牌上線後轉換率提升近 40%，客戶說終於找到一個有質感的有機品牌。」",
   metrics: [{ n: "40%", l: "轉換率提升" }, { n: "8W", l: "週完成" }, { n: "5+", l: "應用展開" }],
+  tags: ["品牌識別", "有機電商", "包裝標籤"],
   imgColors: ["rgba(201,202,202,0.20)", "rgba(201,202,202,0.12)", "rgba(55,106,179,0.08)", "rgba(201,202,202,0.15)"]
 },
-{
-  zh: "沐光攝影 品牌識別", en: "Brand Identity", cat: "品牌識別",
-  heroColor: "#376AB3",
-  client: "沐光攝影工作室 — 婚攝品牌",
-  about: "沐光攝影是一家以「光影敘事」為核心理念的婚攝工作室，希望透過品牌識別傳遞細膩、溫暖的品牌個性，吸引高端婚慶客群。",
-  process: "深入訪談創辦人的拍攝哲學後，以「光」的流動為設計語言，建立可辨識的 LOGO 與視覺系統，並延伸至合約文件、名片與社群視覺。",
-  feedback: "「品牌升級後詢問高端婚攝的客戶明顯增加，感覺整個品牌終於跟上了我們的攝影風格。」",
-  metrics: [{ n: "5W", l: "週完成" }, { n: "4+", l: "應用展開" }, { n: "98%", l: "客戶滿意" }],
-  imgColors: ["rgba(55,106,179,0.10)", "rgba(55,106,179,0.06)", "rgba(201,202,202,0.14)", "rgba(55,106,179,0.08)"]
-},
-{
-  zh: "綠徑植感 品牌識別", en: "Brand Identity", cat: "品牌識別",
-  heroColor: "#C9CACA",
-  client: "綠徑植感 — 植栽生活品牌",
-  about: "綠徑植感以城市植栽為核心，主打讓植物融入都市生活的生活提案，希望建立清新且具辨識度的品牌形象。",
-  process: "以簡約線條與自然意象為設計方向，發展出可延伸性強的 LOGO 系統，並規劃應用於植栽標籤、包材與空間指引。",
-  feedback: "「設計出來的感覺跟我們想像的完全一樣，甚至更好，根本不需要修改。」",
-  metrics: [{ n: "5W", l: "週完成" }, { n: "6+", l: "應用展開" }, { n: "100%", l: "客戶滿意" }],
-  imgColors: ["rgba(201,202,202,0.18)", "rgba(55,106,179,0.07)", "rgba(201,202,202,0.12)", "rgba(55,106,179,0.07)"]
-},
-{
-  zh: "禾光烘焙 社群經營", en: "Social Media", cat: "社群經營",
-  heroColor: "#F29A76",
-  client: "禾光烘焙 — 職人烘焙品牌",
-  about: "禾光烘焙是一家主打職人精神的烘焙品牌，希望透過社群媒體呈現麵包師的工藝精神，同時帶動到店人潮與線上訂單。",
-  process: "建立「職人日常」的社群內容主軸，每週規劃製程紀錄、產品故事與限定商品預告等內容，搭配統一的視覺風格，讓品牌在社群上形成獨特辨識度。",
-  feedback: "「社群開始有了自己的風格，粉絲說他們是因為 IG 才來店的，這樣的回饋讓我們很感動。」",
-  metrics: [{ n: "3.5×", l: "觸及成長" }, { n: "16+", l: "週均貼文" }, { n: "4M", l: "合作月數" }],
-  imgColors: ["rgba(242,154,118,0.16)", "rgba(242,154,118,0.09)", "rgba(55,106,179,0.08)", "rgba(242,154,118,0.11)"]
-},
-{
-  zh: "織月選品 社群經營", en: "Social Media", cat: "社群經營",
-  heroColor: "#376AB3",
-  client: "織月選品 — 北歐風格生活選品",
-  about: "織月選品以北歐極簡風格為主軸，希望透過社群媒體建立品牌生活美學，同時提升電商流量與轉換率。",
-  process: "制定「生活情境」的社群策略，每月規劃主題攝影、選品故事與生活方式內容，並整合社群數據持續優化受眾觸及。",
-  feedback: "「合作半年，電商月營業額成長了兩倍，IG 粉絲也突破了一萬。這是我們沒想到的速度。」",
-  metrics: [{ n: "2×", l: "電商成長" }, { n: "10K+", l: "粉絲突破" }, { n: "6M", l: "合作月數" }],
-  imgColors: ["rgba(55,106,179,0.11)", "rgba(201,202,202,0.14)", "rgba(55,106,179,0.07)", "rgba(201,202,202,0.11)"]
-},
-{
-  zh: "初覺美學 廣告投放", en: "Ad Campaign", cat: "廣告投放",
-  heroColor: "#F29A76",
-  client: "初覺美學 — 美容診所品牌",
-  about: "初覺美學是一家結合醫美與生活美學的診所品牌，希望透過精準廣告投放擴大品牌知名度，並有效提升線上諮詢預約量。",
-  process: "分析現有客群數據，建立多層次受眾分層，針對不同療程設計差異化廣告素材進行 A/B 測試，持續優化 CPC 與預約轉換率。",
-  feedback: "「廣告成效超過預期，諮詢量成長了三倍，最令我們印象深刻的是新客戶的質量也同步提升了。」",
-  metrics: [{ n: "3×", l: "諮詢成長" }, { n: "−42%", l: "CPC 降低" }, { n: "5M", l: "合作月數" }],
-  imgColors: ["rgba(242,154,118,0.15)", "rgba(242,154,118,0.08)", "rgba(55,106,179,0.08)", "rgba(242,154,118,0.11)"]
-},
-{
-  zh: "星野旅宿 廣告投放", en: "Ad Campaign", cat: "廣告投放",
-  heroColor: "#376AB3",
-  client: "星野旅宿 — 山林風格民宿",
-  about: "星野旅宿主打山林療癒的住宿體驗，希望透過 Meta 與 Google Ads 精準觸及目標客群，在旺季前有效提升訂房率。",
-  process: "針對「週末旅遊族」與「身心靈旅遊族群」建立不同受眾策略，結合旺季檔期設計廣告素材與促購活動，並透過再行銷機制強化訂房轉換。",
-  feedback: "「旺季前兩個月就達成滿房，這是過去從來沒有過的成績，廣告策略精準度讓我們非常驚豔。」",
-  metrics: [{ n: "100%", l: "旺季滿房" }, { n: "5.8×", l: "ROAS 達成" }, { n: "3M", l: "合作月數" }],
-  imgColors: ["rgba(55,106,179,0.12)", "rgba(55,106,179,0.07)", "rgba(201,202,202,0.15)", "rgba(55,106,179,0.08)"]
-}];
+];
 
 const WORK_CATS = ["全部", "品牌識別", "包裝設計", "社群經營", "廣告投放"];
 
@@ -413,6 +362,7 @@ function WorkLightbox({ work, onClose, onNavigate }) {
   };
 
   const heroIsDark = work.heroColor !== "#C9CACA";
+  const isTextHeavy = work.cat === "廣告投放" || work.cat === "社群經營";
 
   return (
     <div className={"lb-overlay" + (visible ? " open" : "")}
@@ -430,63 +380,86 @@ function WorkLightbox({ work, onClose, onNavigate }) {
           </div>
         </div>
 
-        {/* Hero banner */}
-        <div className="lb-hero" style={{ background: work.heroColor }}>
+        {/* Main visual — top of page */}
+        <div className="lb-hero-img" style={{ background: work.heroColor }}>
+          {work.heroImg ? <img src={work.heroImg} alt={work.zh} /> : (
+          <div className="lb-img-ph"><Sparkle size={32} color={heroIsDark ? "rgba(255,255,255,0.5)" : "rgba(55,106,179,0.4)"} /><span style={{ color: heroIsDark ? "rgba(255,255,255,0.7)" : undefined }}>主視覺 · {work.en.toUpperCase()}</span></div>
+          )}
+        </div>
+
+        {/* Title block — tags + heading below main visual */}
+        <div className="lb-titleblock">
           <div className="wrap">
-            <div className="lb-cat" style={{ color: heroIsDark ? "#fff" : "var(--blue)" }}>{work.cat}</div>
-            <h2 className="lb-title" style={{ color: heroIsDark ? "#fff" : "var(--ink)" }}>{work.zh}</h2>
-            <div className="lb-subtitle" style={{ color: heroIsDark ? "rgba(255,255,255,.72)" : "var(--ink-soft)" }}>{work.en}</div>
-            <div className="lb-client" style={{ color: heroIsDark ? "rgba(255,255,255,.6)" : "var(--muted)" }}>{work.client}</div>
+            <div className="lb-tags-row">
+              <span className="lb-tag-pill active">{work.cat}</span>
+              {work.tags.map(t => <span key={t} className="lb-tag-pill">{t}</span>)}
+            </div>
+            <h2 className="lb-title">{work.zh}</h2>
           </div>
         </div>
 
         {/* Body */}
         <div className="lb-body">
           <div className="wrap">
+          <div className={"lb-article" + (isTextHeavy ? " text-heavy" : " img-heavy")}>
 
-            {/* Main image */}
-            <div className="lb-img-full" style={{ background: work.imgColors[0] }}>
-              <div className="lb-img-ph"><Sparkle size={32} color="rgba(55,106,179,0.4)" /><span>主視覺 · {work.en.toUpperCase()}</span></div>
-            </div>
+            {isTextHeavy ? (
+            <React.Fragment>
+              {/* About — text-forward */}
+              <div className="lb-section">
+                <div className="lb-sec-label">專案背景</div>
+                <p className="lb-sec-text">{work.about}</p>
+              </div>
 
-            {/* 2-col images */}
-            <div className="lb-img-2col">
-              {[1, 2].map(i => (
-                <div key={i} className="lb-img-half" style={{ background: work.imgColors[i] }}>
-                  <div className="lb-img-ph"><Sparkle size={20} color="rgba(55,106,179,0.3)" /><span>作品圖 0{i + 1}</span></div>
-                </div>
-              ))}
-            </div>
+              {/* single supporting image, smaller */}
+              <div className="lb-img-mid" style={{ background: work.imgColors[1] }}>
+                {work.midImg ? <img src={work.midImg} alt="" /> : (
+                <div className="lb-img-ph"><Sparkle size={18} color="rgba(55,106,179,0.3)" /><span>成效素材</span></div>
+                )}
+              </div>
 
-            {/* About */}
-            <div className="lb-section">
-              <div className="lb-sec-label">專案背景</div>
-              <p className="lb-sec-text">{work.about}</p>
-            </div>
+              {/* Process — longer text */}
+              <div className="lb-section">
+                <div className="lb-sec-label">投放策略 · 執行過程</div>
+                <p className="lb-sec-text">{work.process}</p>
+              </div>
+            </React.Fragment>
+            ) : (
+            <React.Fragment>
+              {/* About — brief */}
+              <div className="lb-section">
+                <div className="lb-sec-label">專案背景</div>
+                <p className="lb-sec-text">{work.about}</p>
+              </div>
 
-            {/* Wide image */}
-            <div className="lb-img-wide" style={{ background: work.imgColors[3] }}>
-              <div className="lb-img-ph"><Sparkle size={22} color="rgba(55,106,179,0.35)" /><span>執行過程</span></div>
-            </div>
+              {/* 2-col images */}
+              <div className="lb-img-2col">
+                {[1, 2].map(i => (
+                  <div key={i} className="lb-img-half" style={{ background: work.imgColors[i] }}>
+                    {(i === 1 ? work.imgA : work.imgB) ? <img src={i === 1 ? work.imgA : work.imgB} alt="" /> : (
+                    <div className="lb-img-ph"><Sparkle size={20} color="rgba(55,106,179,0.3)" /><span>作品圖 0{i + 1}</span></div>
+                    )}
+                  </div>
+                ))}
+              </div>
 
-            {/* Process */}
-            <div className="lb-section">
-              <div className="lb-sec-label">設計思路 · 執行過程</div>
-              <p className="lb-sec-text">{work.process}</p>
-            </div>
+              {/* Process — brief */}
+              <div className="lb-section">
+                <div className="lb-sec-label">設計思路 · 執行過程</div>
+                <p className="lb-sec-text">{work.process}</p>
+              </div>
 
-            {/* Metrics */}
-            <div className="lb-metrics">
-              {work.metrics.map(m => (
-                <div key={m.l} className="lb-metric">
-                  <div className="lb-metric-n">{m.n}</div>
-                  <div className="lb-metric-l">{m.l}</div>
-                </div>
-              ))}
-            </div>
+              {/* Wide image */}
+              <div className="lb-img-wide" style={{ background: work.imgColors[3] }}>
+                {work.wideImg ? <img src={work.wideImg} alt="" /> : (
+                <div className="lb-img-ph"><Sparkle size={22} color="rgba(55,106,179,0.35)" /><span>執行過程</span></div>
+                )}
+              </div>
+            </React.Fragment>
+            )}
 
             {/* Feedback */}
-            <blockquote className="lb-quote">{work.feedback}</blockquote>
+            <p className="lb-sec-text">{work.feedback}</p>
 
             {/* Next work */}
             {next && (
@@ -495,6 +468,7 @@ function WorkLightbox({ work, onClose, onNavigate }) {
                 <span className="lb-next-title">{next.zh} →</span>
               </div>
             )}
+          </div>
           </div>
         </div>
       </div>
@@ -515,6 +489,17 @@ function Work() {
 
   const handleCat = (c) => { setCat(c); setVisible(WORK_PAGE); };
 
+  const gridRef = React.useRef(null);
+  React.useEffect(() => {
+    const nodes = gridRef.current ? gridRef.current.querySelectorAll(".reveal:not(.in)") : [];
+    if (!nodes.length) return;
+    const io = new IntersectionObserver((ents) => {
+      ents.forEach(e => { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } });
+    }, { threshold: 0.14, rootMargin: "0px 0px -8% 0px" });
+    const tid = setTimeout(() => nodes.forEach(el => io.observe(el)), 30);
+    return () => { clearTimeout(tid); io.disconnect(); };
+  }, [shown.length, cat]);
+
   return (
     <section id="work" className="section" style={{ position: "relative", overflow: "hidden" }}>
       <BrandStar type="burst8" size={160} color="var(--blue)" style={{ position: "absolute", top: -30, right: -40, opacity: 0.07, pointerEvents: "none" }} />
@@ -531,27 +516,27 @@ function Work() {
             )}
           </div>
         </div>
-        <div className="work-grid">
+        <div className="work-grid" ref={gridRef}>
           {shown.map((w, i) =>
           <article className="work-card reveal" key={w.zh}
             style={{ transitionDelay: i % 3 * 0.08 + "s", cursor: "pointer" }}
             onClick={() => setSelected(w)}>
               <div className="work-thumb">
-                <div className="ph">
-                  <Sparkle size={26} color="var(--gray)" />
+                {w.cover ? <img src={w.cover} alt={w.zh} loading="lazy" /> : (
+                <div className="ph" style={{ color: w.heroColor + "66" }}>
+                  <Sparkle size={26} color={w.heroColor} />
                   <span className="mono">作品圖 · {w.en.toUpperCase()}</span>
                 </div>
+                )}
                 <div className="ov">
-                  <div>
-                    <div className="en">{w.en}</div>
-                    <div style={{ fontWeight: 800, fontSize: 18, marginTop: 4 }}>{w.zh}</div>
-                    <div style={{ fontSize: 13, opacity: .7, marginTop: 6 }}>查看詳情 →</div>
-                  </div>
+                  <div style={{ fontSize: 13, opacity: .85 }}>查看詳情 →</div>
                 </div>
               </div>
               <div className="meta">
-                <div className="cat">{w.cat}</div>
                 <h3>{w.zh}</h3>
+                <div className="tags">
+                  {[w.cat, ...w.tags.filter(t => t !== w.cat)].map((t, i) => <span className={"tag" + (i === 0 ? " active" : "")} key={t} style={i === 0 ? { background: w.heroColor, borderColor: w.heroColor, color: "#fff" } : {}}>{t}</span>)}
+                </div>
               </div>
             </article>
           )}
