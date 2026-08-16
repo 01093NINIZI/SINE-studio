@@ -3,27 +3,47 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>第二象限 SINE STUDIO — 設計驅動行銷，行銷助力設計</title>
-<meta name="description" content="第二象限 SINE STUDIO 是行銷 × 設計的整合工作室。提供品牌識別、平面包裝、社群代操與廣告投放，堅持從 0 到 1，讓每一個品牌被看見、被實現。" />
+<title>最新消息 — 第二象限 SINE STUDIO</title>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&family=Space+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
 <link rel="stylesheet" href="styles.css" />
-</head>
-<body>
-<template id="__bundler_thumbnail"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 140"><rect width="200" height="140" fill="#376AB3"/><text x="100" y="76" font-size="28" fill="#fff" text-anchor="middle" font-family="sans-serif" font-weight="900">SINE</text></svg></template>
-<div id="root"><div class="page-loader"><span class="spinner"></span></div></div>
-
 <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
 <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
 <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
-
-<script type="text/babel" src="tweaks-panel.jsx"></script>
 <script type="text/babel" src="motifs.jsx"></script>
-<script type="text/babel" src="brand-assets.jsx"></script>
+<style>
+  body{padding-top:88px}
+  .news-page .reveal{opacity:1!important;transform:none!important}
+  .nav{background:rgba(255,255,255,.88)!important;backdrop-filter:blur(14px);box-shadow:0 1px 0 var(--line);padding-top:11px!important;padding-bottom:11px!important}
+</style>
+</head>
+<body>
+<div id="legal-nav-root"></div>
+<main id="root"><div class="page-loader"><span class="spinner"></span></div></main>
+<script src="brand-assets.jsx" type="text/babel"></script>
 <script type="text/babel" src="sections-hero.jsx"></script>
 <script type="text/babel" src="sections-rest.jsx"></script>
 <script type="text/babel" src="sections-news.jsx"></script>
-<script type="text/babel" src="app.jsx"></script>
+<script type="text/babel">
+function NewsPage() {
+  const q = new URLSearchParams(location.search);
+  const slug = q.get("p");
+  const cat = q.get("cat");
+  const post = slug ? NEWS.find(p => p.slug === slug) : null;
+  React.useEffect(() => {
+    document.title = (post ? post.title : "最新消息") + " — 第二象限 SINE STUDIO";
+  }, [slug]);
+  return (
+    <React.Fragment>
+      <NetworkBanner />
+      <Nav onDark={false} isHome={false} />
+      {post ? <NewsArticle post={post} /> : <NewsArchive cat={NEWS_CATS.includes(cat) ? cat : "全部"} />}
+      <Footer />
+    </React.Fragment>);
+}
+ReactDOM.createRoot(document.getElementById('legal-nav-root')).render(null);
+ReactDOM.createRoot(document.getElementById('root')).render(<NewsPage />);
+</script>
 </body>
 </html>

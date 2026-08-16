@@ -54,15 +54,16 @@ function App() {
 
   return (
     <React.Fragment>
+      <NetworkBanner />
       <Nav onDark={variant.dark} />
       <main id="top">
         <section className={"hero " + variant.cls} key={heroKey}>
           <variant.Comp />
         </section>
-        <Spirits />
         <Services />
         <Work />
-        <Team />
+        <News />
+        <Contact />
       </main>
       <Footer />
 

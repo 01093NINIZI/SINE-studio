@@ -3,14 +3,26 @@
    ============================================================ */
 
 const NAV = [
-{ id: "about", zh: "關於", en: "About" },
-{ id: "services", zh: "服務", en: "Services" },
-{ id: "work", zh: "作品", en: "Work" },
-{ id: "team", zh: "團隊", en: "Team" },
+{ id: "about", zh: "關於我們", en: "About" },
+{ id: "services", zh: "執行專案", en: "Services", anchor: "work" },
+{ id: "work", zh: "聯繫我們", en: "Work", anchor: "contact" },
+{ id: "team", zh: "最新消息", en: "News", anchor: "news" },
 { id: "contact", zh: "聯絡", en: "Contact" }];
 
 
-function Nav({ onDark }) {
+function NetworkBanner() {
+  const [offline, setOffline] = React.useState(typeof navigator !== "undefined" && !navigator.onLine);
+  React.useEffect(() => {
+    const on = () => setOffline(false), off = () => setOffline(true);
+    window.addEventListener("online", on); window.addEventListener("offline", off);
+    return () => { window.removeEventListener("online", on); window.removeEventListener("offline", off); };
+  }, []);
+  if (!offline) return null;
+  return (
+    <div className="net-banner" role="status">⚠ 網路連線已中斷，部分功能可能無法使用</div>);
+}
+
+function Nav({ onDark, isHome = true }) {
   const [scrolled, setScrolled] = React.useState(false);
   const [open, setOpen] = React.useState(false);
   React.useEffect(() => {
@@ -22,9 +34,10 @@ function Nav({ onDark }) {
   return (
     <React.Fragment>
       <nav className={"nav" + (scrolled ? " scrolled" : "")}>
-        <a href="#top" aria-label="第二象限 SINE STUDIO"><Lockup onDark={light} markSize={48} /></a>
+        <a href={isHome ? "#top" : "index.html"} aria-label="第二象限 SINE STUDIO"><Lockup onDark={light} markSize={48} /></a>
         <div className="nav-links">
-          {NAV.filter((n) => n.id !== "contact").map((n) => <a key={n.id} href={"#" + n.id} style={light ? { color: "rgba(255,255,255,.8)" } : null}>{n.zh}</a>)}
+          {!isHome && <a href="index.html" style={light ? { color: "rgba(255,255,255,.8)" } : null}>回首頁</a>}
+          {NAV.filter((n) => n.id !== "contact").map((n) => <a key={n.id} href={n.id === "about" ? "about.html" : n.id === "work" ? "contact.html" : (isHome ? "#" + (n.anchor || n.id) : "index.html#" + (n.anchor || n.id))} style={light ? { color: "rgba(255,255,255,.8)" } : null}>{n.zh}</a>)}
         </div>
         <a href="contact.html" className="btn btn-accent nav-cta">開始合作 <span className="arr">→</span></a>
         <button className="nav-burger" aria-label="選單" onClick={() => setOpen(true)}
@@ -38,14 +51,76 @@ function Nav({ onDark }) {
         <div style={{ position: "absolute", top: 20, right: "var(--pad)" }}>
           <button onClick={() => setOpen(false)} style={{ color: "#fff", fontSize: 34, lineHeight: 1 }}>×</button>
         </div>
-        {NAV.filter((n) => n.id !== "contact").map((n) => <a key={n.id} href={"#" + n.id} onClick={() => setOpen(false)}>{n.zh}<span className="en">{n.en}</span></a>)}
+        {!isHome && <a href="index.html" onClick={() => setOpen(false)}>回首頁<span className="en">Home</span></a>}
+        {NAV.filter((n) => n.id !== "contact").map((n) => <a key={n.id} href={n.id === "about" ? "about.html" : n.id === "work" ? "contact.html" : (isHome ? "#" + (n.anchor || n.id) : "index.html#" + (n.anchor || n.id))} onClick={() => setOpen(false)}>{n.zh}<span className="en">{n.en}</span></a>)}
         <a href="contact.html" onClick={() => setOpen(false)} style={{ color: "var(--pink-soft)", borderBottom: "none", marginTop: 10 }}>開始合作 <span className="arr">→</span></a>
       </div>
     </React.Fragment>);
 
 }
 
-const HERO_TAGS = ["品牌識別", "官網、社群代操", "廣告投放", "平面包裝"];
+const HERO_WINDMILL_POLYS = [
+"134.6 154.77 132.89 156.64 76.53 216.41 57.53 198.53 98.45 155.14 100.88 152.53 115.6 136.92 132.75 153.05 134.6 154.77",
+"100.98 155.04 98.45 155.14 16.35 157.55 15.55 131.49 75.21 129.72 78.69 129.6 100.18 128.98 100.88 152.53 100.98 155.04",
+"94.93 112.45 78.69 129.6 77.02 131.41 75.21 129.72 15.43 73.34 33.28 54.39 76.71 95.3 79.28 97.7 94.93 112.45",
+"102.87 97.01 79.28 97.7 76.81 97.77 76.71 95.3 74.28 13.16 100.36 12.4 102.13 72.02 102.25 75.6 102.87 97.01",
+"177.46 30.13 136.54 73.52 134.11 76.13 119.4 91.72 102.25 75.6 100.4 73.87 102.13 72.02 158.46 12.22 177.46 30.13",
+"219.45 97.15 159.79 98.92 156.3 99.06 134.81 99.68 134.11 76.13 134.03 73.6 136.54 73.52 218.65 71.09 219.45 97.15",
+"219.56 155.31 201.71 174.27 158.29 133.34 155.68 130.92 140.09 116.21 156.3 99.06 157.98 97.25 159.79 98.92 219.56 155.31",
+"160.72 215.5 134.64 216.24 132.89 156.64 132.75 153.05 132.13 131.62 155.68 130.92 158.19 130.83 158.29 133.34 160.72 215.5"];
+const HERO_SWIRL_D = "M217.69,106.38c2.65.51,2.42,4.36-.27,4.55-3.17.22-6.35.8-9.52,1.64-20.19,5.25-40.37,20.5-60.59,17.09-1.85-.31-3.35,1.55-2.53,3.24,8.92,18.41,29.1,25.57,42.87,39.14,2.34,2.31,4.48,4.81,6.36,7.58,1.51,2.23-1.38,4.79-3.41,3.02-2.41-2.11-5.08-3.95-7.93-5.62-18.02-10.58-43.1-14.08-54.97-30.8-1.09-1.53-3.46-1.28-4.08.5-6.72,19.34,2.56,38.69,2.64,58.03.02,3.26-.22,6.53-.84,9.79-.51,2.65-4.36,2.42-4.55-.27-.22-3.17-.8-6.35-1.64-9.52-5.25-20.21-20.5-40.4-17.09-60.61.31-1.86-1.55-3.35-3.24-2.53-18.41,8.95-25.54,29.12-39.13,42.86-2.31,2.33-4.8,4.48-7.56,6.35-2.23,1.51-4.79-1.37-3.02-3.41,2.1-2.41,3.94-5.08,5.61-7.92,10.58-18.02,14.08-43.1,30.82-54.94,1.54-1.09,1.28-3.46-.49-4.08-19.34-6.75-38.69,2.53-58.03,2.65-3.27.01-6.53-.24-9.8-.86-2.65-.51-2.42-4.35.27-4.55,3.18-.23,6.35-.81,9.53-1.64,20.19-5.25,40.37-20.5,60.59-17.09,1.85.31,3.35-1.55,2.53-3.24-8.92-18.41-29.1-25.54-42.87-39.14-2.34-2.31-4.49-4.81-6.37-7.58-1.51-2.23,1.38-4.79,3.41-3.02,2.41,2.11,5.09,3.95,7.94,5.62,18.02,10.58,43.1,14.1,54.97,30.83,1.09,1.53,3.46,1.28,4.08-.5,6.72-19.34-2.56-38.69-2.64-58.03-.02-3.26.22-6.53.84-9.79.51-2.65,4.36-2.42,4.55.27.22,3.17.8,6.35,1.64,9.52,5.25,20.19,20.5,40.4,17.09,60.59-.31,1.86,1.55,3.35,3.24,2.53,18.41-8.92,25.54-29.1,39.14-42.84,2.3-2.32,4.78-4.46,7.53-6.33,2.23-1.52,4.79,1.37,3.02,3.41-2.09,2.4-3.92,5.05-5.57,7.87-10.58,18.02-14.08,43.1-30.82,54.97-1.54,1.09-1.28,3.46.5,4.08,19.34,6.72,38.68-2.53,58.03-2.64,3.26-.02,6.53.22,9.79.84Z";
+const HERO_STARTHIN_D = "M118.2,56.37l5.89,28.48c.11.53.74.75,1.15.4l49-40.51c.67-.55,1.55.34,1,1l-40.51,49c-.34.41-.12,1.04.4,1.15l28.48,5.89c.76.16.76,1.24,0,1.39l-28.48,5.89c-.53.11-.75.74-.4,1.15l40.51,49c.55.67-.34,1.55-1,1l-48.87-40.41c-.44-.36-1.11-.09-1.16.48l-5.99,63.13c-.08.86-1.34.86-1.42,0l-5.99-63.13c-.05-.57-.72-.85-1.16-.48l-48.87,40.41c-.67.55-1.55-.34-1-1l40.51-49c.34-.41.12-1.04-.4-1.15l-28.48-5.89c-.76-.16-.76-1.24,0-1.39l28.48-5.89c.53-.11.75-.74.4-1.15l-40.51-49c-.55-.67.34-1.55,1-1l49,40.51c.41.34,1.04.12,1.15-.4l5.89-28.48c.16-.76,1.24-.76,1.39,0Z";
+const HERO_SPARKLE4_D = "M217.71,112.28l-77.55-7.35,39.76-53.04-53.04,39.76-7.35-77.55c-.23-2.47-3.83-2.47-4.07,0l-7.35,77.55-53.04-39.76,39.76,53.04-77.55,7.35c-2.47.23-2.47,3.83,0,4.07l77.55,7.35-39.76,53.04,53.04-39.76,7.35,77.55c.23,2.47,3.83,2.47,4.07,0l7.35-77.55,53.04,39.76-39.76-53.04,77.55-7.35c2.47-.23,2.47-3.83,0-4.07Z";
+function HeroIcon({ type, size = 60, color = "#fff" }) {
+  const common = { width: size, height: size, viewBox: "0 0 235 228.64", fill: "none", "aria-hidden": true };
+  if (type === "windmill") return <svg {...common}>{HERO_WINDMILL_POLYS.map((p, i) => <polygon key={i} points={p} fill={color} />)}</svg>;
+  if (type === "swirl") return <svg {...common}><path d={HERO_SWIRL_D} fill={color} /></svg>;
+  if (type === "sparkle4") return <svg {...common}><path d={HERO_SPARKLE4_D} fill={color} /></svg>;
+  return <svg {...common}><path d={HERO_STARTHIN_D} fill={color} /></svg>;
+}
+
+const HERO_SCATTER_ITEMS = [
+/* wide: 桌機橫向散落 · narrow: 手機直式散落 */
+{ kind: "star", type: "starThin", size: 108, color: "#fff",                 rot: 0,   d: 0.05, wide: { top: "22%", left: "13%" }, narrow: { top: "16%", left: "72%" } },
+{ kind: "tag",  label: "電商代操",       fill: "fill-accent", act: { t: "svc", k: "電商代操" },  rot: -10, d: 0.18, wide: { top: "62%", left: "22%" }, narrow: { top: "25%", left: "36%" } },
+{ kind: "tag",  label: "群眾集資",       fill: "fill-line",   act: { t: "work", k: "群眾集資" }, rot: -3,  d: 0.28, wide: { top: "34%", left: "38%" }, narrow: { top: "37%", left: "58%" } },
+{ kind: "star", type: "sparkle4", size: 56,  color: "rgba(255,255,255,.6)", rot: 8,   d: 0.36, wide: { top: "26%", left: "56%" }, narrow: { top: "67%", left: "62%" } },
+{ kind: "tag",  label: "廣告投放",       fill: "fill-line",   act: { t: "svc", k: "廣告投放" },  rot: -8,  d: 0.42, wide: { top: "66%", left: "52%" }, narrow: { top: "60%", left: "43%" } },
+{ kind: "star", type: "swirl",    size: 130, color: "var(--accent)",        rot: -6,  d: 0.5,  wide: { top: "18%", left: "89%" }, narrow: { top: "68%", left: "84%" } },
+{ kind: "tag",  label: "平面設計",       fill: "fill-accent", act: { t: "work", k: "平面設計" }, rot: -3,  d: 0.58, wide: { top: "40%", left: "70%" }, narrow: { top: "82%", left: "47%" } },
+{ kind: "star", type: "windmill", size: 130, color: "rgba(255,255,255,.7)", rot: 15,  d: 0.12, wide: { top: "84%", left: "64%" }, narrow: { top: "76%", left: "17%" } }];
+
+function heroJump(act, e) {
+  if (e) e.preventDefault();
+  if (!act) return;
+  window.dispatchEvent(new CustomEvent(act.t === "svc" ? "sine:open-service" : "sine:filter-work", { detail: act.k }));
+}
+
+function HeroScatter() {
+  const narrow = typeof window !== "undefined" && window.matchMedia("(max-width:720px)").matches;
+  const [isNarrow, setIsNarrow] = React.useState(narrow);
+  React.useEffect(() => {
+    const mq = window.matchMedia("(max-width:720px)");
+    const fn = (e) => setIsNarrow(e.matches);
+    mq.addEventListener("change", fn);
+    return () => mq.removeEventListener("change", fn);
+  }, []);
+  const pos = (it) => isNarrow ? it.narrow : it.wide;
+  return (
+    <div className="hero-scatter">
+      {HERO_SCATTER_ITEMS.map((it, i) => it.kind === "star" ? (
+        <div key={i} className="scatter-item is-star" style={{ top: pos(it).top, left: pos(it).left, width: "calc(" + it.size + "px * var(--sc,1))", height: "calc(" + it.size + "px * var(--sc,1))", "--rot": it.rot + "deg", "--d": it.d + "s" }}>
+          <HeroIcon type={it.type} size="100%" color={it.color} />
+        </div>
+      ) : (
+        <div key={i} className="scatter-item is-tag" style={{ top: pos(it).top, left: pos(it).left, "--rot": it.rot + "deg", "--d": it.d + "s" }}>
+          <a href={it.act && it.act.t === "work" ? "#work" : "#services"} onClick={(e) => heroJump(it.act, e)} className={"scatter-tag " + it.fill} style={{ "--pd": (it.d + 0.75) + "s" }}># {it.label}</a>
+        </div>
+      ))}
+    </div>
+  );
+}
+
 const HERO_LEAD = "第二象限是行銷 × 設計 × 廣告的整合工作室。堅持從 0 到 1，以專業為基準、熱情為動力，讓每一個品牌都能被看見、被實現。";
 
 /* ---- Sparkle & Meteor data (from 流星-24.svg, normalised 0-1) ---- */
@@ -148,74 +223,7 @@ function startNebula(canvas) {
     ctx.fillStyle = '#376AB3';
     ctx.fillRect(0, 0, W, H);
 
-    /* --- orange nebula lobes (circle + heavy blur = soft blob) --- */
-    ctx.save();
-    /* blur in canvas px = visual-px * dpr */
-    const blurPx = Math.round(W * 0.088 * dpr);
-    ctx.filter = `blur(${blurPx}px)`;
-
-    /* mouse + time offsets */
-    const mx1 = reduce ? 0 : Math.sin(t * 0.32        ) * 0.07 + (mx - 0.5) * 0.20;
-    const my1 = reduce ? 0 : Math.cos(t * 0.25        ) * 0.06 + (my - 0.5) * 0.14;
-    const mx2 = reduce ? 0 : Math.sin(t * 0.26 + 2.09 ) * 0.07 + (mx - 0.5) * 0.20;
-    const my2 = reduce ? 0 : Math.cos(t * 0.20 + 1.80 ) * 0.06 + (my - 0.5) * 0.14;
-    /* radius pulse */
-    const r1 = W * 0.30 * (reduce ? 1 : 1 + 0.10 * Math.sin(t * 0.44));
-    const r2 = W * 0.20 * (reduce ? 1 : 1 + 0.10 * Math.sin(t * 0.36 + 1.5));
-    const r3 = W * 0.18 * (reduce ? 1 : 1 + 0.10 * Math.sin(t * 0.40 + 3.8));
-    const mx3 = reduce ? 0 : Math.sin(t * 0.30 + 4.2) * 0.07 + (mx - 0.5) * 0.16;
-    const my3 = reduce ? 0 : Math.cos(t * 0.24 + 3.5) * 0.06 + (my - 0.5) * 0.14;
-
-    /* top-right lobe */
-    ctx.fillStyle = 'rgba(242,154,118,0.92)';
-    ctx.beginPath();
-    ctx.arc((0.86 + mx1) * W, (0.12 + my1) * H, r1, 0, Math.PI * 2);
-    ctx.fill();
-
-    /* bottom-center lobe (smaller) */
-    ctx.fillStyle = 'rgba(242,154,118,0.82)';
-    ctx.beginPath();
-    ctx.arc((0.50 + mx2) * W, (0.84 + my2) * H, r2, 0, Math.PI * 2);
-    ctx.fill();
-
-    /* third lobe — left-center (smaller) */
-    ctx.fillStyle = 'rgba(242,154,118,0.78)';
-    ctx.beginPath();
-    ctx.arc((0.28 + mx3) * W, (0.52 + my3) * H, r3, 0, Math.PI * 2);
-    ctx.fill();
-
-    /* soft gray accent (very subtle, upper-left) */
-    const rGray = W * 0.16 * (reduce ? 1 : 1 + 0.08 * Math.sin(t * 0.55 + 3.0));
-    ctx.fillStyle = 'rgba(201,202,202,0.28)';
-    ctx.beginPath();
-    ctx.arc(W * 0.10 + (reduce ? 0 : (mx - 0.5) * W * 0.10),
-            H * 0.25 + (reduce ? 0 : (my - 0.5) * H * 0.08), rGray, 0, Math.PI * 2);
-    ctx.fill();
-
-    ctx.restore();
-
-    if (!reduce) {
-      /* ---- cursor follower: reacts to speed ---- */
-      ctx.save();
-      const cBlur   = Math.round(W * Math.max(0.022, 0.056 - speed * 3.5) * dpr);
-      const cR      = W * (0.09 + Math.min(speed * 4, 0.08));
-      const cAlpha  = Math.min(0.72, 0.36 + speed * 6);
-      ctx.filter    = `blur(${cBlur}px)`;
-      ctx.fillStyle = `rgba(242,154,118,${cAlpha.toFixed(2)})`;
-      ctx.beginPath();
-      ctx.arc(mx * W, my * H, cR, 0, Math.PI * 2);
-      ctx.fill();
-      ctx.restore();
-
-      /* ---- lagged trail: soft echo behind cursor ---- */
-      ctx.save();
-      ctx.filter    = `blur(${Math.round(W * 0.048 * dpr)}px)`;
-      ctx.fillStyle = 'rgba(242,154,118,0.28)';
-      ctx.beginPath();
-      ctx.arc(lmx * W, lmy * H, W * 0.10, 0, Math.PI * 2);
-      ctx.fill();
-      ctx.restore();
-    }
+    /* orange nebula lobes + cursor glow removed */
 
     /* ---- Stars & Meteors ---- */
     const scaleX = W / VB_W, scaleY = H / VB_H;
@@ -224,10 +232,21 @@ function startNebula(canvas) {
       drawSparkle(ctx, s.x * scaleX, s.y * scaleY, s.s * Math.min(scaleX,scaleY) * 3.5, a);
     }
     for (const m of METEOR_DATA) {
-      const a = Math.max(0, Math.sin((t/m.per + m.ph/(2*Math.PI)) * Math.PI * 2));
-      drawMeteor(ctx,
-        m.x1*scaleX, m.y1*scaleY, m.x2*scaleX, m.y2*scaleY,
-        m.w * scaleX * 0.5, a);
+      const x1 = m.x1 * scaleX, y1 = m.y1 * scaleY, x2 = m.x2 * scaleX, y2 = m.y2 * scaleY;
+      const dx = x2 - x1, dy = y2 - y1, len = Math.hypot(dx, dy) || 1;
+      const ux = dx / len, uy = dy / len;
+      const overshoot = len * 2.6;
+      const totalTravel = len + overshoot * 2;
+      const progRaw = (t / m.per + m.ph / (2 * Math.PI));
+      const prog = progRaw - Math.floor(progRaw);
+      const headDist = -overshoot + prog * totalTravel;
+      const headX = x1 + ux * headDist, headY = y1 + uy * headDist;
+      const tailX = headX - ux * len, tailY = headY - uy * len;
+      const edge = 0.08;
+      let a = 1;
+      if (prog < edge) a = prog / edge;
+      else if (prog > 1 - edge) a = (1 - prog) / edge;
+      drawMeteor(ctx, tailX, tailY, headX, headY, m.w * scaleX * 0.5, a);
     }
 
     raf = requestAnimationFrame(frame);
@@ -262,14 +281,14 @@ function HeroB() {
   return (
     <React.Fragment>
       <canvas ref={canvasRef} style={{ position:'absolute', inset:0, width:'100%', height:'100%', zIndex:0, display:'block' }} />
-<div className="hero-inner wrap" style={{ display:'flex', justifyContent:'center', height:'557px', position:'relative', zIndex:1 }}>
+<div className="hero-inner wrap" style={{ display:'flex', justifyContent:'center', minHeight:557, position:'relative', zIndex:1 }}>
         <div className="heroB-inner" style={{ paddingTop:80 }}>
-          <div className="eyebrow on-dark reveal in" style={{ justifyContent:'center' }}>SINE STUDIO ／ 第二象限</div>
           <h1 className="h-display reveal in d1" style={{ marginTop:22 }}>
-            在第二象限中<br /><span style={{ color:'var(--pink)' }}>閃耀</span>的存在
+            有產品，但不知道怎麼賣？<br />陪品牌從一個好想法，<br />走到<span style={{ color:'var(--pink)' }}>被市場看見</span>
           </h1>
-          <p className="lead reveal in d2" style={{ marginTop:24, marginInline:'auto', maxWidth:600 }}>{HERO_LEAD}</p>
-          <div className="hero-tag reveal in d3" style={{ justifyContent:'center' }}>{HERO_TAGS.map((t) => <span key={t}>{t}</span>)}</div>
+          <div className="reveal in d3">
+            <HeroScatter />
+          </div>
         </div>
       </div>
     </React.Fragment>
@@ -330,4 +349,4 @@ function Spirits() {
 
 }
 
-Object.assign(window, { Nav, HeroB, HERO_VARIANTS, Spirits });
+Object.assign(window, { Nav, HeroB, HERO_VARIANTS, Spirits, NetworkBanner });

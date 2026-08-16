@@ -5,7 +5,7 @@
 /* ---- Services (4 pillars, click to open detail table) ---- */
 const SERVICES = [
 {
-  zh: "電商", en: "eCommerce",
+  zh: "電商代操", en: "eCommerce",
   desc: "社群行銷內容、商品檔期行銷 & 推廣策略、數據分析與成效追蹤…",
   type: "compare",
   columns: ["廣告操作 + KOL", "企劃素材製作", "企劃 + 廣告操作 + KOL 專案", "再登場專案"],
@@ -20,7 +20,7 @@ const SERVICES = [
 
 },
 {
-  zh: "廣告", en: "Advertising",
+  zh: "廣告投放", en: "Advertising",
   desc: "Meta & Google 廣告投放、GA4 數據分析與優化、數據導向品牌行銷企劃、港澳市場廣告策略…",
   type: "compare",
   columns: ["純廣告代操", "廣告代操 + 數據分析", "廣告代操 + 數據分析 + 社群代操"],
@@ -36,7 +36,7 @@ const SERVICES = [
   footnote: "* 如有 Google Ads 投放需求，歡迎洽詢了解"
 },
 {
-  zh: "設計", en: "Design",
+  zh: "平面設計", en: "Graphic Design",
   desc: "品牌策略、LOGO、品牌識別、活動與宣傳視覺、印刷物、產品包裝、商業插畫…",
   type: "sections",
   sections: [
@@ -84,7 +84,7 @@ const SERVICES = [
 
 },
 {
-  zh: "集資", en: "Crowdfunding",
+  zh: "群眾集資", en: "Crowdfunding",
   desc: "提案輔導、全案規畫、執行代操、頁面設計、平台上架、行銷推廣、數據追蹤…",
   type: "compare",
   columns: ["廣告操作 + KOL", "企劃素材製作", "企劃 + 廣告操作 + KOL 專案", "再登場專案"],
@@ -205,8 +205,24 @@ function ServiceModal({ svc, onClose }) {
 
 }
 
+function scrollToId(id) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  window.scrollTo({ top: el.getBoundingClientRect().top + window.pageYOffset - 80, behavior: "smooth" });
+}
+
 function Services() {
   const [active, setActive] = React.useState(null);
+  React.useEffect(() => {
+    const fn = (e) => {
+      const s = SERVICES.find(x => x.zh === e.detail);
+      if (!s) return;
+      scrollToId("services");
+      setTimeout(() => setActive(s), 420);
+    };
+    window.addEventListener("sine:open-service", fn);
+    return () => window.removeEventListener("sine:open-service", fn);
+  }, []);
   return (
     <section id="services" className="section" style={{ background: "var(--blue-tint-2)" }}>
       <Crosshatch cols={6} rows={6} cell={30} color="var(--pink)" opacity={0.3}
@@ -215,8 +231,8 @@ function Services() {
       <div className="wrap" style={{ position: "relative", zIndex: 2 }}>
         <div style={{ maxWidth: 640 }}>
           <div className="eyebrow reveal">Services · 服務項目</div>
-          <h2 className="h-sec reveal d1" style={{ marginTop: 16, whiteSpace: "nowrap" }}>行銷 × 設計 × 廣告，<span style={{ color: "var(--blue)" }}>一站整合</span></h2>
-          <p className="lead reveal d2" style={{ marginTop: 16 }}>從品牌識別到廣告投放，提供具專業性與價值的整合服務。</p>
+          <h2 className="h-sec reveal d1" style={{ marginTop: 16, whiteSpace: "nowrap" }}>行銷 × 設計 × 廣告<span style={{ color: "var(--blue)" }}></span></h2>
+          <p className="lead reveal d2" style={{ marginTop: 16 }}></p>
         </div>
         <div className="svc-grid">
           {SERVICES.map((s, i) =>
@@ -231,8 +247,11 @@ function Services() {
           )}
         </div>
         <div className="svc-more reveal">
-          <div className="line">「<span className="accent">+ 更多服務</span>，歡迎洽詢」</div>
-          <span className="en">以上僅供參考，實際報價依照不同專案內容會有所變動，歡迎直接洽詢</span>
+          <div className="svc-more-row">
+            <div className="line"><span className="accent">+ 更多服務</span>，先聊聊你的需求</div>
+            <a href="contact.html" className="btn btn-accent">開始合作 <span className="arr">→</span></a>
+          </div>
+          <span className="en">實際報價依專案需求與執行內容調整。</span>
         </div>
       </div>
       {active && <ServiceModal svc={active} onClose={() => setActive(null)} />}
@@ -243,7 +262,7 @@ function Services() {
 /* ---- Work ---- */
 const WORK = [
 {
-  zh: "台農嚴選 — 新盈感優酪乳系列", en: "Packaging", cat: "包裝設計",
+  slug: "tainong-yogurt", zh: "台農嚴選 — 新盈感優酪乳系列", en: "Packaging", cat: "平面設計",
   heroColor: "#376AB3",
   cover: "assets/work-01-cover.jpg", heroImg: "assets/work-01-hero.jpg", imgA: "assets/work-01-a.jpg", imgB: "assets/work-01-b.jpg", wideImg: "assets/work-01-cover.jpg",
   client: "台農嚴選 — 新盈感優酪乳系列",
@@ -255,7 +274,7 @@ const WORK = [
   imgColors: ["rgba(55,106,179,0.12)", "rgba(242,154,118,0.1)", "rgba(150,110,190,0.12)", "rgba(55,106,179,0.09)"]
 },
 {
-  zh: "潮汐茶飲 包裝設計", en: "Packaging", cat: "包裝設計",
+  slug: "chaoxi-tea", zh: "潮汐茶飲 包裝設計", en: "Packaging", cat: "平面設計",
   heroColor: "#F29A76",
   client: "潮汐茶飲 — 台式茶飲品牌",
   about: "潮汐茶飲主打台灣在地茶葉，希望透過包裝傳遞海洋感與在地情感，在競爭激烈的手搖杯市場中建立差異化視覺識別。",
@@ -266,7 +285,7 @@ const WORK = [
   imgColors: ["rgba(242,154,118,0.18)", "rgba(242,154,118,0.1)", "rgba(201,202,202,0.15)", "rgba(242,154,118,0.13)"]
 },
 {
-  zh: "星嶼民宿 社群經營", en: "Social Media", cat: "社群經營",
+  slug: "xingyu-social", zh: "星嶼民宿 社群經營", en: "Social Media", cat: "電商代操",
   heroColor: "#376AB3",
   client: "星嶼民宿 — 離島特色住宿",
   about: "星嶼民宿位於澎湖，定位為高端生態旅遊住宿，希望透過社群媒體建立品牌故事感，吸引注重體驗的旅遊族群。",
@@ -277,18 +296,18 @@ const WORK = [
   imgColors: ["rgba(55,106,179,0.1)", "rgba(201,202,202,0.18)", "rgba(55,106,179,0.07)", "rgba(201,202,202,0.13)"]
 },
 {
-  zh: "野放咖啡 視覺系統", en: "Visual System", cat: "品牌識別",
+  slug: "yefang-crowdfunding", zh: "野放咖啡 器具集資計畫", en: "Crowdfunding", cat: "群眾集資",
   heroColor: "#C9CACA",
   client: "野放咖啡 — 戶外風格咖啡廳",
-  about: "野放咖啡主打戶外探險風格，是一家結合咖啡與選物的獨立品牌，客戶希望建立從 LOGO 到空間、餐具的一致性視覺語言。",
-  process: "從品牌核心「野性與自由」出發，以粗曠線條與大地色系為主軸，延伸至 LOGO 系統、餐具、包裝、菜單與室內空間指引牌設計。",
-  feedback: "「拿到設計稿那天，我們整個團隊都起立鼓掌。這就是我們想要的野放精神，完全到位。」",
-  metrics: [{ n: "8+", l: "應用展開" }, { n: "8W", l: "週完成" }, { n: "98%", l: "客戶滿意" }],
-  tags: ["視覺系統", "咖啡品牌", "空間設計"],
+  about: "野放咖啡推出戶外手沖器具組，希望透過群眾集資驗證市場需求，同時累積品牌的第一批核心客群。",
+  process: "從產品定位與價格帶測試開始，規劃集資頁面故事線、回饋方案結構與影音素材，並在上線前以名單預熱、首日集中導流衝出達標動能。",
+  feedback: "「上線第一天就達標，最後結案金額是我們原本目標的三倍，回饋方案的設計真的很關鍵。」",
+  metrics: [{ n: "312%", l: "達成率" }, { n: "1D", l: "首日達標" }, { n: "6W", l: "專案週期" }],
+  tags: ["群眾集資", "咖啡品牌", "回饋規劃"],
   imgColors: ["rgba(201,202,202,0.28)", "rgba(55,106,179,0.08)", "rgba(201,202,202,0.18)", "rgba(55,106,179,0.06)"]
 },
 {
-  zh: "光年保養 廣告投放", en: "Ad Campaign", cat: "廣告投放",
+  slug: "guangnian-ads", zh: "光年保養 廣告投放", en: "Ad Campaign", cat: "廣告投放",
   heroColor: "#F29A76",
   client: "光年保養 — 台灣天然保養品牌",
   about: "光年保養主打天然成份的本土保養品牌，希望透過 Meta 廣告投放擴大品牌知名度，並提升電商轉換率。",
@@ -299,18 +318,18 @@ const WORK = [
   imgColors: ["rgba(242,154,118,0.16)", "rgba(242,154,118,0.09)", "rgba(55,106,179,0.09)", "rgba(242,154,118,0.12)"]
 },
 {
-  zh: "拾光書店 活動視覺", en: "Event Visual", cat: "包裝設計",
+  slug: "shiguang-crowdfunding", zh: "拾光書店 選集出版集資", en: "Crowdfunding", cat: "群眾集資",
   heroColor: "#376AB3",
   client: "拾光書店 — 獨立書店",
-  about: "拾光書店是一家富有人文氣息的獨立書店，希望為年度閱讀節設計完整的活動視覺，包含主視覺海報、社群素材與現場展覽設計。",
-  process: "以「光」為核心意象，融合書頁翻動的動態感，設計出溫暖而有力量的活動視覺系統，並延伸至各尺寸素材，確保跨媒體的一致性。",
-  feedback: "「活動海報貼出後馬上被多位藝文媒體轉分享，今年的閱讀節報名人數是去年的三倍。」",
-  metrics: [{ n: "3×", l: "活動報名" }, { n: "10+", l: "素材規格" }, { n: "3W", l: "週完成" }],
-  tags: ["活動視覺", "獨立書店", "海報設計"],
+  about: "拾光書店首次自製選集出版，希望以群眾集資方式先確認讀者需求，再決定印量與裝幀規格。",
+  process: "整理書店既有讀者名單作為前測受眾，規劃三檔回饋方案與限量裝幀版本，搭配作者訪談影片與社群連載內容維持整段集資期的討論度。",
+  feedback: "「集資期間的內容節奏安排得很清楚，我們第一次出版就順利達標，也留下了長期會回訪的讀者。」",
+  metrics: [{ n: "186%", l: "達成率" }, { n: "1.2K", l: "支持人數" }, { n: "5W", l: "集資期" }],
+  tags: ["群眾集資", "獨立書店", "出版專案"],
   imgColors: ["rgba(55,106,179,0.13)", "rgba(55,106,179,0.07)", "rgba(201,202,202,0.16)", "rgba(55,106,179,0.09)"]
 },
 {
-  zh: "質感原食 品牌識別", en: "Brand Identity", cat: "品牌識別",
+  slug: "zhigan-identity", zh: "質感原食 品牌識別", en: "Brand Identity", cat: "平面設計",
   heroColor: "#C9CACA",
   client: "質感原食 — 有機食材電商品牌",
   about: "質感原食主打嚴選有機食材直送，希望建立兼具信任感與美感的品牌識別，打破有機食品品牌形象老舊的刻板印象。",
@@ -322,172 +341,198 @@ const WORK = [
 },
 ];
 
-const WORK_CATS = ["全部", "品牌識別", "包裝設計", "社群經營", "廣告投放"];
+const WORK_CATS = ["全部", "電商代操", "廣告投放", "平面設計", "群眾集資"];
 
-/* ---- Work Lightbox ---- */
-function WorkLightbox({ work, onClose, onNavigate }) {
-  const idx = WORK.findIndex(w => w.zh === work.zh);
-  const prev = idx > 0 ? WORK[idx - 1] : null;
-  const next = idx < WORK.length - 1 ? WORK[idx + 1] : null;
-  const [visible, setVisible] = React.useState(false);
-  const scrollRef = React.useRef(null);
+const workUrl = (w) => "work.html?p=" + w.slug;
+const workCatUrl = (c) => "work.html" + (c && c !== "全部" ? "?cat=" + encodeURIComponent(c) : "");
+const workCount = (c) => WORK.filter(w => c === "全部" || w.cat === c).length;
 
-  React.useEffect(() => {
-    const tid = setTimeout(() => setVisible(true), 10);
-    return () => clearTimeout(tid);
-  }, []);
-
-  React.useEffect(() => {
-    if (scrollRef.current) scrollRef.current.scrollTop = 0;
-  }, [work.zh]);
-
-  React.useEffect(() => {
-    document.body.style.overflow = "hidden";
-    return () => { document.body.style.overflow = ""; };
-  }, []);
-
-  React.useEffect(() => {
-    const fn = (e) => {
-      if (e.key === "Escape") handleClose();
-      if (e.key === "ArrowLeft" && prev) onNavigate(prev);
-      if (e.key === "ArrowRight" && next) onNavigate(next);
-    };
-    window.addEventListener("keydown", fn);
-    return () => window.removeEventListener("keydown", fn);
-  }, [work, prev, next]);
-
-  const handleClose = () => {
-    setVisible(false);
-    setTimeout(onClose, 340);
-  };
-
-  const heroIsDark = work.heroColor !== "#C9CACA";
-  const isTextHeavy = work.cat === "廣告投放" || work.cat === "社群經營";
-
+/* ---- 側邊分類欄 ---- */
+function WorkSidebar({ current, exclude }) {
+  const recent = WORK.filter(w => !exclude || w.slug !== exclude).slice(0, 4);
   return (
-    <div className={"lb-overlay" + (visible ? " open" : "")}
-      onClick={(e) => { if (e.target === e.currentTarget) handleClose(); }}>
-      <div className="lb-panel" ref={scrollRef}>
-
-        {/* Top bar */}
-        <div className="lb-topbar">
-          <button className="lb-back" onClick={handleClose}>← 返回作品集</button>
-          <div className="lb-nav-ctrl">
-            <span className="lb-count">{idx + 1} / {WORK.length}</span>
-            <button className={"lb-arr" + (!prev ? " dis" : "")} onClick={() => prev && onNavigate(prev)} aria-label="上一件">←</button>
-            <button className={"lb-arr" + (!next ? " dis" : "")} onClick={() => next && onNavigate(next)} aria-label="下一件">→</button>
-            <button className="lb-close-btn" onClick={handleClose} aria-label="關閉">✕</button>
-          </div>
-        </div>
-
-        {/* Main visual — top of page */}
-        <div className="lb-hero-img" style={{ background: work.heroColor }}>
-          {work.heroImg ? <img src={work.heroImg} alt={work.zh} /> : (
-          <div className="lb-img-ph"><Sparkle size={32} color={heroIsDark ? "rgba(255,255,255,0.5)" : "rgba(55,106,179,0.4)"} /><span style={{ color: heroIsDark ? "rgba(255,255,255,0.7)" : undefined }}>主視覺 · {work.en.toUpperCase()}</span></div>
+    <aside className="news-side">
+      <div className="news-side-block">
+        <div className="news-side-title">專案分類</div>
+        <div className="news-cat-list">
+          {WORK_CATS.map(c =>
+          <a key={c} href={workCatUrl(c)} className={"news-cat-item" + (c === current ? " act" : "")}>
+            <span>{c}</span><span className="mono n">{workCount(c)}</span>
+          </a>
           )}
         </div>
-
-        {/* Title block — tags + heading below main visual */}
-        <div className="lb-titleblock">
-          <div className="wrap">
-            <div className="lb-tags-row">
-              <span className="lb-tag-pill active">{work.cat}</span>
-              {work.tags.map(t => <span key={t} className="lb-tag-pill">{t}</span>)}
-            </div>
-            <h2 className="lb-title">{work.zh}</h2>
-          </div>
-        </div>
-
-        {/* Body */}
-        <div className="lb-body">
-          <div className="wrap">
-          <div className={"lb-article" + (isTextHeavy ? " text-heavy" : " img-heavy")}>
-
-            {isTextHeavy ? (
-            <React.Fragment>
-              {/* About — text-forward */}
-              <div className="lb-section">
-                <div className="lb-sec-label">專案背景</div>
-                <p className="lb-sec-text">{work.about}</p>
-              </div>
-
-              {/* single supporting image, smaller */}
-              <div className="lb-img-mid" style={{ background: work.imgColors[1] }}>
-                {work.midImg ? <img src={work.midImg} alt="" /> : (
-                <div className="lb-img-ph"><Sparkle size={18} color="rgba(55,106,179,0.3)" /><span>成效素材</span></div>
-                )}
-              </div>
-
-              {/* Process — longer text */}
-              <div className="lb-section">
-                <div className="lb-sec-label">投放策略 · 執行過程</div>
-                <p className="lb-sec-text">{work.process}</p>
-              </div>
-            </React.Fragment>
-            ) : (
-            <React.Fragment>
-              {/* About — brief */}
-              <div className="lb-section">
-                <div className="lb-sec-label">專案背景</div>
-                <p className="lb-sec-text">{work.about}</p>
-              </div>
-
-              {/* 2-col images */}
-              <div className="lb-img-2col">
-                {[1, 2].map(i => (
-                  <div key={i} className="lb-img-half" style={{ background: work.imgColors[i] }}>
-                    {(i === 1 ? work.imgA : work.imgB) ? <img src={i === 1 ? work.imgA : work.imgB} alt="" /> : (
-                    <div className="lb-img-ph"><Sparkle size={20} color="rgba(55,106,179,0.3)" /><span>作品圖 0{i + 1}</span></div>
-                    )}
-                  </div>
-                ))}
-              </div>
-
-              {/* Process — brief */}
-              <div className="lb-section">
-                <div className="lb-sec-label">設計思路 · 執行過程</div>
-                <p className="lb-sec-text">{work.process}</p>
-              </div>
-
-              {/* Wide image */}
-              <div className="lb-img-wide" style={{ background: work.imgColors[3] }}>
-                {work.wideImg ? <img src={work.wideImg} alt="" /> : (
-                <div className="lb-img-ph"><Sparkle size={22} color="rgba(55,106,179,0.35)" /><span>執行過程</span></div>
-                )}
-              </div>
-            </React.Fragment>
-            )}
-
-            {/* Feedback */}
-            <p className="lb-sec-text">{work.feedback}</p>
-
-            {/* Next work */}
-            {next && (
-              <div className="lb-next" onClick={() => onNavigate(next)}>
-                <span className="lb-next-label">NEXT PROJECT</span>
-                <span className="lb-next-title">{next.zh} →</span>
-              </div>
-            )}
-          </div>
-          </div>
+      </div>
+      <div className="news-side-block">
+        <div className="news-side-title">其他專案</div>
+        <div className="news-recent">
+          {recent.map(w =>
+          <a key={w.slug} href={workUrl(w)} className="news-recent-item">
+            <span className="mono d">{w.cat}</span>
+            <span className="t">{w.zh}</span>
+          </a>
+          )}
         </div>
       </div>
-    </div>
-  );
+      <a className="btn btn-accent news-side-cta" href="contact.html">開始合作 <span className="arr">→</span></a>
+    </aside>);
 }
 
-const WORK_PAGE = 6; /* 每次顯示幾件 */
+/* ---- 專案總覽頁（work.html 無參數） ---- */
+function WorkArchive({ cat = "全部" }) {
+  const filtered = WORK.filter(w => cat === "全部" || w.cat === cat);
+  return (
+    <div className="news-page">
+      <div className="wrap news-archive-head">
+        <div className="eyebrow">Work · 執行專案</div>
+        <h1 className="h-sec" style={{ marginTop: 14 }}>品牌的<span style={{ color: "var(--blue)" }}>無限可能</span></h1>
+      </div>
+      <div className="wrap news-layout">
+        <div>
+          <div className="news-archive-bar">
+            <span className="mono">{cat === "全部" ? "全部專案" : cat} · {filtered.length} 件</span>
+          </div>
+          {filtered.length ? (
+          <div className="work-grid news-archive-grid">
+            {filtered.map((w, i) => <WorkCard key={w.slug} work={w} delay={i % 2 * 0.08} />)}
+          </div>
+          ) : (
+          <p className="lb-sec-text">此分類目前還沒有專案。</p>
+          )}
+        </div>
+        <WorkSidebar current={cat} />
+      </div>
+    </div>);
+}
+
+/* ---- 專案內容頁（work.html?p=slug） ---- */
+function WorkArticle({ work }) {
+  const idx = WORK.findIndex(w => w.slug === work.slug);
+  const next = idx > -1 && idx < WORK.length - 1 ? WORK[idx + 1] : null;
+  const heroIsDark = work.heroColor !== "#C9CACA";
+  const isTextHeavy = work.cat === "廣告投放" || work.cat === "電商代操";
+
+  return (
+    <article className="news-page">
+      <div className="lb-hero-img" style={{ background: work.heroColor }}>
+        {work.heroImg ? <img src={work.heroImg} alt={work.zh} /> : (
+        <div className="lb-img-ph"><Sparkle size={32} color={heroIsDark ? "rgba(255,255,255,0.5)" : "rgba(55,106,179,0.4)"} /><span style={{ color: heroIsDark ? "rgba(255,255,255,0.7)" : undefined }}>主視覺 · {work.en.toUpperCase()}</span></div>
+        )}
+      </div>
+
+      <div className="lb-titleblock">
+        <div className="wrap">
+          <div className="lb-tags-row">
+            <span className="lb-tag-pill active">{work.cat}</span>
+            {work.tags.map(t => <span key={t} className="lb-tag-pill">{t}</span>)}
+          </div>
+          <h1 className="lb-title">{work.zh}</h1>
+        </div>
+      </div>
+
+      <div className="wrap news-layout">
+        <div className="news-body">
+          <h2 className="news-h" style={{ marginTop: 0 }}>專案背景</h2>
+          <p className="lb-sec-text">{work.about}</p>
+
+          {isTextHeavy ? (
+          <div className="lb-img-mid" style={{ background: work.imgColors[1] }}>
+            {work.midImg ? <img src={work.midImg} alt="" /> : (
+            <div className="lb-img-ph"><Sparkle size={18} color="rgba(55,106,179,0.3)" /><span>成效素材</span></div>
+            )}
+          </div>
+          ) : (
+          <div className="lb-img-2col">
+            {[1, 2].map(i => (
+              <div key={i} className="lb-img-half" style={{ background: work.imgColors[i] }}>
+                {(i === 1 ? work.imgA : work.imgB) ? <img src={i === 1 ? work.imgA : work.imgB} alt="" /> : (
+                <div className="lb-img-ph"><Sparkle size={20} color="rgba(55,106,179,0.3)" /><span>作品圖 0{i + 1}</span></div>
+                )}
+              </div>
+            ))}
+          </div>
+          )}
+
+          <h2 className="news-h">{isTextHeavy ? "投放策略 · 執行過程" : "設計思路 · 執行過程"}</h2>
+          <p className="lb-sec-text">{work.process}</p>
+
+          {!isTextHeavy && (
+          <div className="lb-img-wide" style={{ background: work.imgColors[3] }}>
+            {work.wideImg ? <img src={work.wideImg} alt="" /> : (
+            <div className="lb-img-ph"><Sparkle size={22} color="rgba(55,106,179,0.35)" /><span>執行過程</span></div>
+            )}
+          </div>
+          )}
+
+          <h2 className="news-h">客戶回饋</h2>
+          <p className="news-quote">{work.feedback}</p>
+
+          <div className="news-stats">
+            {work.metrics.map(m => <div className="stat" key={m.l}><div className="n">{m.n}</div><div className="l">{m.l}</div></div>)}
+          </div>
+
+          <div className="news-foot">
+            <a className="news-back-link" href={workCatUrl(work.cat)}>← 回「{work.cat}」專案列表</a>
+            {next && (
+            <a className="lb-next" href={workUrl(next)} style={{ textDecoration: "none" }}>
+              <span className="lb-next-label">NEXT PROJECT</span>
+              <span className="lb-next-title">{next.zh} →</span>
+            </a>
+            )}
+          </div>
+        </div>
+        <WorkSidebar current={work.cat} exclude={work.slug} />
+      </div>
+    </article>);
+}
+
+/* ---- 專案卡片 ---- */
+function WorkCard({ work: w, delay = 0 }) {
+  return (
+    <a className="work-card reveal" href={workUrl(w)}
+      style={{ transitionDelay: delay + "s", display: "block", color: "inherit", textDecoration: "none" }}>
+      <div className="work-thumb">
+        {w.cover ? <img src={w.cover} alt={w.zh} loading="lazy" /> : (
+        <div className="ph" style={{ color: w.heroColor + "66" }}>
+          <Sparkle size={26} color={w.heroColor} />
+          <span className="mono">作品圖 · {w.en.toUpperCase()}</span>
+        </div>
+        )}
+        <div className="ov">
+          <div style={{ fontSize: 13, opacity: .85 }}>查看詳情 →</div>
+        </div>
+      </div>
+      <div className="meta">
+        <h3>{w.zh}</h3>
+        <div className="tags">
+          {[w.cat, ...w.tags.filter(t => t !== w.cat)].slice(0, 3).map((t, i) => <span className={"tag" + (i === 0 ? " active" : "")} key={t}>{t}</span>)}
+        </div>
+      </div>
+    </a>);
+}
+
+const WORK_PAGE = 6; /* 「全部」每次顯示幾件 */
+const WORK_PAGE_CAT = 3; /* 其他分類每次顯示幾件 */
 
 function Work() {
   const [cat, setCat] = React.useState("全部");
-  const [visible, setVisible] = React.useState(WORK_PAGE);
-  const [selected, setSelected] = React.useState(null);
+  const step = cat === "全部" ? WORK_PAGE : WORK_PAGE_CAT;
+  const limit = cat === "全部" ? WORK_PAGE : WORK_PAGE_CAT;
 
   const filtered = WORK.filter((w) => cat === "全部" || w.cat === cat);
-  const shown = filtered.slice(0, visible);
-  const hasMore = visible < filtered.length;
+  const shown = filtered.slice(0, limit);
+  const hasMore = filtered.length > limit;
 
-  const handleCat = (c) => { setCat(c); setVisible(WORK_PAGE); };
+  const handleCat = (c) => setCat(c);
+
+  React.useEffect(() => {
+    const fn = (e) => {
+      if (!WORK_CATS.includes(e.detail)) return;
+      handleCat(e.detail);
+      scrollToId("work");
+    };
+    window.addEventListener("sine:filter-work", fn);
+    return () => window.removeEventListener("sine:filter-work", fn);
+  }, []);
 
   const gridRef = React.useRef(null);
   React.useEffect(() => {
@@ -507,8 +552,8 @@ function Work() {
       <div className="wrap">
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", flexWrap: "wrap", gap: 24 }}>
           <div>
-            <div className="eyebrow reveal">Work · 作品集</div>
-            <h2 className="h-sec reveal d1" style={{ marginTop: 16 }}>讓品牌<span style={{ color: "var(--blue)" }}>被看見</span>的成果</h2>
+            <a href="#services" className="eyebrow reveal" style={{ textDecoration: "none" }}>Work · 執行專案</a>
+            <h2 className="h-sec reveal d1" style={{ marginTop: 16 }}>品牌的<span style={{ color: "var(--blue)" }}>無限可能</span></h2>
           </div>
           <div className="work-filter reveal d2">
             {WORK_CATS.map((c) =>
@@ -517,29 +562,7 @@ function Work() {
           </div>
         </div>
         <div className="work-grid" ref={gridRef}>
-          {shown.map((w, i) =>
-          <article className="work-card reveal" key={w.zh}
-            style={{ transitionDelay: i % 3 * 0.08 + "s", cursor: "pointer" }}
-            onClick={() => setSelected(w)}>
-              <div className="work-thumb">
-                {w.cover ? <img src={w.cover} alt={w.zh} loading="lazy" /> : (
-                <div className="ph" style={{ color: w.heroColor + "66" }}>
-                  <Sparkle size={26} color={w.heroColor} />
-                  <span className="mono">作品圖 · {w.en.toUpperCase()}</span>
-                </div>
-                )}
-                <div className="ov">
-                  <div style={{ fontSize: 13, opacity: .85 }}>查看詳情 →</div>
-                </div>
-              </div>
-              <div className="meta">
-                <h3>{w.zh}</h3>
-                <div className="tags">
-                  {[w.cat, ...w.tags.filter(t => t !== w.cat)].map((t, i) => <span className={"tag" + (i === 0 ? " active" : "")} key={t} style={i === 0 ? { background: w.heroColor, borderColor: w.heroColor, color: "#fff" } : {}}>{t}</span>)}
-                </div>
-              </div>
-            </article>
-          )}
+          {shown.map((w, i) => <WorkCard key={w.slug} work={w} delay={i % 3 * 0.08} />)}
         </div>
 
         {/* 載入更多 */}
@@ -548,32 +571,19 @@ function Work() {
             <div className="work-count-info mono" style={{ fontSize: 13, color: "var(--muted)", marginBottom: 14 }}>
               已顯示 {shown.length} / {filtered.length} 件作品
             </div>
-            <button className="btn-outline work-more-btn" onClick={() => setVisible(v => v + WORK_PAGE)}>
-              載入更多作品
-            </button>
+            <a className="news-more-link" href={workCatUrl(cat)}>
+              查看全部{cat === "全部" ? "" : cat}專案 <span className="ar">→</span>
+            </a>
           </div>
         )}
 
-        {!hasMore && filtered.length > WORK_PAGE && (
-          <div style={{ textAlign: "center", marginTop: 28 }}>
-            <button className="work-collapse-btn mono" onClick={() => setVisible(WORK_PAGE)}
-              style={{ fontSize: 13, color: "var(--muted)", textDecoration: "underline" }}>
-              收合
-            </button>
+        {!hasMore && (
+          <div style={{ textAlign: "center", marginTop: 34 }}>
+            <a className="news-more-link" href={workCatUrl(cat)}>前往專案總覽 <span className="ar">→</span></a>
           </div>
         )}
 
-        <p className="mono reveal" style={{ textAlign: "center", marginTop: 28, color: "var(--muted)", fontSize: 13 }}>
-          ＊ 作品圖為佔位示意，待您提供真實作品後替換
-        </p>
       </div>
-      {selected && (
-        <WorkLightbox
-          work={selected}
-          onClose={() => setSelected(null)}
-          onNavigate={(w) => setSelected(w)}
-        />
-      )}
     </section>
   );
 }
@@ -627,7 +637,20 @@ function Team() {
 
 /* ---- Contact / CTA ---- */
 function Contact() {
-  const [sent, setSent] = React.useState(false);
+  const [status, setStatus] = React.useState("idle"); // idle · submitting · success · error
+  const [form, setForm] = React.useState({ name: "", contact: "", project: "" });
+
+  const submit = (e) => {
+    e.preventDefault();
+    if (typeof navigator !== "undefined" && !navigator.onLine) { setStatus("error"); return; }
+    setStatus("submitting");
+    /* TODO(engineer): replace with real API call — this simulates network latency */
+    setTimeout(() => {
+      const ok = true; // swap in real response check
+      setStatus(ok ? "success" : "error");
+    }, 1100);
+  };
+
   return (
     <section id="contact" className="section cta">
       <Crosshatch cols={6} rows={5} cell={30} color="rgba(242,154,118,.5)" opacity={0.5}
@@ -636,23 +659,40 @@ function Contact() {
       <BrandStar type="oval" size={80} color="rgba(255,255,255,0.15)" style={{ position: "absolute", bottom: 20, right: "15%", zIndex: 1, pointerEvents: "none" }} />
       <div className="wrap cta-inner">
         <div>
-          <div className="eyebrow on-dark reveal">Contact · 開始合作</div>
+          <a href="#work" className="eyebrow on-dark reveal" style={{ textDecoration: "none" }}>Contact · 聯繫我們</a>
           <h2 className="reveal d1" style={{ marginTop: 18 }}>準備好讓品牌<br /><span className="accent">閃耀</span>了嗎？</h2>
-          <p className="lead reveal d2" style={{ marginTop: 18, maxWidth: 440 }}>無論是品牌從零開始，或想提升行銷成效，告訴我們你的需求，一起把構想推向第二象限。</p>
+          <p className="lead reveal d2" style={{ marginTop: 18, maxWidth: 440 }}>無論是品牌從零開始，或想提升行銷成效，告訴我們你的需求，一起把品牌推向市場。</p>
           <div className="contact-meta reveal d3">
             <div className="row"><span className="k">LINE</span><span>@519baqoh</span></div>
             <div className="row"><span className="k">Email</span><span>ssinestudio2024@gmail.com</span></div>
             <div className="row"><span className="k">Area</span><span>台灣 · 港澳市場</span></div>
           </div>
         </div>
-        <form className="contact-card reveal d2" onSubmit={(e) => {e.preventDefault();setSent(true);}}>
-          <div className="field"><label>稱呼 Name</label><input required placeholder="您的姓名 / 品牌名稱" /></div>
-          <div className="field"><label>聯絡方式 Email / LINE</label><input required placeholder="email 或 LINE ID" /></div>
-          <div className="field"><label>需求 Project</label><textarea rows="3" placeholder="想聊聊品牌識別、社群代操或廣告投放…"></textarea></div>
-          <button type="submit" className="btn btn-accent" style={{ width: "100%", justifyContent: "center" }}>
-            {sent ? "已收到，我們會盡快回覆 ✦" : <React.Fragment>送出需求 <span className="arr">→</span></React.Fragment>}
+
+        {status === "success" ? (
+        <div className="contact-card state-panel reveal in">
+          <div className="state-icon ok">✓</div>
+          <h3>已收到您的需求</h3>
+          <p>我們會在 1–2 個工作日內透過您提供的聯絡方式回覆。</p>
+          <button type="button" className="btn btn-ghost-light" onClick={() => { setForm({ name: "", contact: "", project: "" }); setStatus("idle"); }}>填寫新需求</button>
+        </div>
+        ) : status === "error" ? (
+        <div className="contact-card state-panel reveal in">
+          <div className="state-icon err">!</div>
+          <h3>{typeof navigator !== "undefined" && !navigator.onLine ? "網路連線中斷" : "傳送失敗"}</h3>
+          <p>請檢查網路連線後再試一次，或直接透過 LINE / Email 聯絡我們。</p>
+          <button type="button" className="btn btn-accent" style={{ width: "100%", justifyContent: "center" }} onClick={() => setStatus("idle")}>重新填寫 <span className="arr">→</span></button>
+        </div>
+        ) : (
+        <form className="contact-card reveal d2 in" onSubmit={submit}>
+          <div className="field"><label>稱呼 Name</label><input required disabled={status === "submitting"} value={form.name} onChange={e => setForm({ ...form, name: e.target.value })} placeholder="您的姓名 / 品牌名稱" /></div>
+          <div className="field"><label>聯絡方式 Email / LINE</label><input required disabled={status === "submitting"} value={form.contact} onChange={e => setForm({ ...form, contact: e.target.value })} placeholder="email 或 LINE ID" /></div>
+          <div className="field"><label>需求 Project</label><textarea rows="3" disabled={status === "submitting"} value={form.project} onChange={e => setForm({ ...form, project: e.target.value })} placeholder="想聊聊品牌識別、社群代操或廣告投放…"></textarea></div>
+          <button type="submit" className="btn btn-accent" disabled={status === "submitting"} style={{ width: "100%", justifyContent: "center" }}>
+            {status === "submitting" ? <React.Fragment><span className="spinner" />傳送中…</React.Fragment> : <React.Fragment>送出需求 <span className="arr">→</span></React.Fragment>}
           </button>
         </form>
+        )}
       </div>
     </section>);
 
@@ -671,14 +711,14 @@ function Footer() {
           <div className="foot-cols">
             <div className="foot-col">
               <h4>Sitemap</h4>
-              {NAV.map((n) => <a key={n.id} href={n.id === "contact" ? "contact.html" : "#" + n.id}>{n.zh}</a>)}
+              {NAV.filter(n => n.id !== "contact").map((n) => <a key={n.id} href={n.id === "about" ? "about.html" : "#" + (n.anchor || n.id)}>{n.zh}</a>)}
             </div>
             <div className="foot-col">
               <h4>Services</h4>
-              <a href="#services">品牌識別 VIS</a>
-              <a href="#services">平面與包裝</a>
-              <a href="#services">社群代操</a>
+              <a href="#services">電商代操</a>
               <a href="#services">廣告投放</a>
+              <a href="#services">平面設計</a>
+              <a href="#services">群眾集資</a>
             </div>
             <div className="foot-col">
               <h4>Contact</h4>
@@ -697,4 +737,4 @@ function Footer() {
 
 }
 
-Object.assign(window, { Services, Work, Team, Contact, Footer });
+Object.assign(window, { WorkArticle, WorkArchive, WorkCard, WorkSidebar, WORK, WORK_CATS, workUrl, workCatUrl, Services, Work, Team, Contact, Footer });

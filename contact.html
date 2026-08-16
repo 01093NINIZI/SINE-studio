@@ -19,30 +19,26 @@
   .legal-nav .back:hover{color:var(--ink)}
   .contact-page{padding:clamp(48px,7vh,90px) 0;background:var(--blue)}
   .contact-page .reveal{opacity:1!important;transform:none!important}
+  .nav{background:rgba(255,255,255,.88)!important;backdrop-filter:blur(14px);box-shadow:0 1px 0 var(--line);padding-top:11px!important;padding-bottom:11px!important}
 </style>
 </head>
 <body>
 <div id="legal-nav-root"></div>
-<main id="root"></main>
+<main id="root"><div class="page-loader"><span class="spinner"></span></div></main>
 <script src="brand-assets.jsx" type="text/babel"></script>
 <script type="text/babel" src="sections-hero.jsx"></script>
 <script type="text/babel" src="sections-rest.jsx"></script>
 <script type="text/babel">
-function LegalNav() {
-  return (
-    <nav className="legal-nav">
-      <a href="index.html" aria-label="第二象限 SINE STUDIO"><Lockup markSize={44} /></a>
-      <a className="back" href="index.html">← 返回首頁</a>
-    </nav>);
-}
 function ContactPage() {
   return (
     <React.Fragment>
+      <NetworkBanner />
+      <Nav onDark={false} isHome={false} />
       <div className="contact-page"><Contact /></div>
       <Footer />
     </React.Fragment>);
 }
-ReactDOM.createRoot(document.getElementById('legal-nav-root')).render(<LegalNav />);
+ReactDOM.createRoot(document.getElementById('legal-nav-root')).render(null);
 ReactDOM.createRoot(document.getElementById('root')).render(<ContactPage />);
 </script>
 </body>
